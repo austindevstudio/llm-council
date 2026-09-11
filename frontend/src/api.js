@@ -4,8 +4,7 @@
 
 const API_BASE = 'http://localhost:8001';
 
-export const api = {
-  /**
+export const api = { /**
    * List all conversations.
    */
   async listConversations() {

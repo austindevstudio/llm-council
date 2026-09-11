@@ -1,0 +1,34 @@
+# LLM Council roster. Edit this file to add/remove/replace advisors —
+# no code changes needed. Model strings follow litellm's format:
+#   "openrouter/<provider>/<model>"  -> routed through OpenRouter (needs OPENROUTER_API_KEY)
+#   "gpt-5.1"                        -> direct OpenAI (needs OPENAI_API_KEY)
+#   "claude-opus-5"                  -> direct Anthropic (needs ANTHROPIC_API_KEY)
+#   "gemini/gemini-3-pro-preview"    -> direct Google (needs GEMINI_API_KEY)
+#
+# Using free-tier (:free) models below — zero credit cost, rate-limited
+# instead (20 req/min on OpenRouter's free tier as of this writing), which
+# is plenty for single-council-round usage. Swap in paid models once your
+# OpenRouter balance supports it — see council.yaml comments per model.
+
+council:
+  - id: nemotron
+    litellm_model: openrouter/nvidia/nemotron-3-ultra-550b-a55b:free
+  - id: inkling
+    litellm_model: openrouter/thinkingmachines/inkling:free
+  - id: north
+    litellm_model: openrouter/cohere/north-mini-code:free
+  - id: lfm
+    litellm_model: openrouter/liquid/lfm-2.5-2.6b:free
+
+chairman:
+  id: chairman
+  litellm_model: openrouter/nvidia/nemotron-3-super-120b-a12b:free
+
+title_model:
+  litellm_model: openrouter/liquid/lfm-2.5-2.6b:free
+
+# If a model call fails (dead slug, provider outage, etc.):
+#   skip_and_flag -> drop that advisor from this round, log it, keep going
+#   fail_fast     -> old behavior, the whole request dies
+fallback:
+  on_error: skip_and_flag
